@@ -1,0 +1,26 @@
+title: Malicious Script Creation in Temporary Internet Files (via file_event)
+description: Detects the creation of a malicious script in the Temporary Internet Files directory.
+id: 13c02350-3fd8-4032-4e45-55687c5718d3 
+author: Furkan Celik
+references:
+- https://asec.ahnlab.com/ko/64612/
+tags:
+- attack.t1204.002
+- attack.execution
+status: stable
+date: 2024-11-08
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    TargetFilename|contains|all:
+    - 'AppData\Local\Microsoft\Windows\Temporary Internet Files\OfficeUpdater'
+    - '.ini'
+  condition: selection
+fields:
+- Image
+- TargetFilename
+falsepositives:
+- Unknown
+level: medium
